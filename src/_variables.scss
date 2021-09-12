@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Roboto Regular";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../src/assets/fonts/Roboto-Regular.ttf)
+}
+
+@font-face {
+    font-family: "Roboto Medium";
+    font-style: normal;
+    font-weight: 500;
+    src: url(../src/assets/fonts/Roboto-Medium.ttf)
+}
+
+@font-face {
+    font-family: "Helvetica Regular";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../src/assets/fonts/HelveticaRegular.ttf)
+}
+
+$fontRobotoRegular: "Roboto Regular", sans-serif;
+$fontRobotoMedium: "Roboto Medium", sans-serif;
+$fontHelveticaRegular: "Helvetica Regular", sans-serif;
+
+$desctopSize: 1440px;
+$desctopMinSize: 1024px;
+$tabletSize: 768px;
+$mobileSize: 320px;
+
+$mainAccentColor: #0EC261;
+$mainBlackColor: #121212;
+$mainGreyColor: #5A6169;
+$lighterGreyColor: #3D5170;
+$lightGreyColor: #818EA3;
+$errorGreyColor: #CACEDB;
+$whiteColor: #ffffff;
+$blueColor: #007BFF;
+$redColor: #C4183C;
+
+$fontSizeMainHeading: 70px;
+$fontSizeMainHeading--mobile: 32px;
+$fontSizeMainDesc: 26px;
+$fontSizeMainDesc--mobile: 18px;
+$fontSizeLogo: 30px;
+$fontSizeSimpleText: 14px;
+$fontSizeSliderHeading: 40px;
+$fontSizeSliderHeading--tablet: 32px;
+$fontSizeSliderDesc: 24px;
+$fontSizeSliderDesc--mobile: 22px;
+$fontSizeBtn: 18px;
+$fontSizeFooter: 13px;
+$fontSizeMenuItem: 32px;
+$fontSizeMenuItem--mobile: 22px;
+$fontSizeSummaryHeading: 18px;
+$fontSizeSummaryTotalPrice: 16px;
+$fontSizeCarHeading: 18px;
+$fontSizeApplyOrderHeading: 24px;
+
+$lineHeightMainHeading: 66px;
+$lineHeightMainHeading--mobile: 32px;
+$lineHeightMainDesc: 30px;
+$lineHeightMainDesc--mobile: 21px;
+$lineHeightLogo: 35px;
+$lineHeightSimpleText: 16px;
+$lineHeightSliderHeading: 47px;
+$lineHeightSliderHeading--tablet: 37px;
+$lineHeightSliderDesc: 22px;
+$lineHeightSliderDesc--mobile: 22px;
+$lineHeightBtn: 21px;
+$lineHeightFooter: 15px;
+$lineHeightMenuItem: 37px;
+$lineHeightMenuItem--mobile: 26px;
+$lineHeightSummaryHeading: 21px;
+$lineHeightSummaryTotalPrice: 16px;
+$lineHeightCarHeading: 21px;
+$lineHeightApplyOrderHeading: 28px;
