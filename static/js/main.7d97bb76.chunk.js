@@ -1,0 +1,2 @@
+(this["webpackJsonpneed_for_drive-admin"]=this["webpackJsonpneed_for_drive-admin"]||[]).push([[0],{10:function(e,n,t){"use strict";t.r(n);var r=t(1),c=t.n(r),i=t(3),d=t.n(i),o=(t(8),t(0));var s=function(){return Object(o.jsx)("div",{className:"App",children:"New project"})};d.a.render(Object(o.jsx)(c.a.StrictMode,{children:Object(o.jsx)(s,{})}),document.getElementById("root"))},8:function(e,n,t){}},[[10,1,2]]]);
+//# sourceMappingURL=main.7d97bb76.chunk.js.map
