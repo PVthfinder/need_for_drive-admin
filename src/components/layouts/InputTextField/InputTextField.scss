@@ -1,0 +1,31 @@
+@import '../../../variables';
+
+.input_field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: $fontSizeInput;
+    line-height: $lineHeightInput;
+    color: $darkGreyColor;
+
+    &__value {
+        width: 100%;
+
+        input {
+            width: 100%;
+            flex-grow: 1;
+            padding: 8px 11px;
+            box-sizing: border-box;
+            border-radius: 3px;
+            border: 0.5px solid $lightGreyColor;
+            margin: 9px 0 15px;
+        }
+
+        input,
+        input::placeholder {
+            font-size: $fontSizeInput;
+            line-height: $lineHeightInput;
+            color: $greyBlueColor;
+        }
+    }
+}

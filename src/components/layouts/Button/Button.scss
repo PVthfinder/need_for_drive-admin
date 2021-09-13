@@ -1,0 +1,56 @@
+@import "../../../_variables.scss";
+
+@mixin btnColor ($color) {
+    background: $color;
+
+    &:hover,
+    &:focus {
+        background: darken($color, 10%);
+        background-blend-mode: darken;
+    }
+
+    &:active {
+        background: darken($color, 20%);
+        background-blend-mode: darken;
+    }
+}
+
+.btn {
+    width: 110px;
+    height: 29px;
+    line-height: 29px;
+    border:none;
+    border-radius: 4px;
+    color: $whiteColor;
+    font-size: $fontSizeButton;
+    cursor: pointer;
+    @include btnColor($blueColor);
+
+    // &--green {
+    //     @include btnColor($slideBtnStartColor--green, $slideEndStartColor--green);
+    // }
+
+    // &--blue {
+    //     @include btnColor($slideBtnStartColor--blue, $slideEndStartColor--blue);
+    // }
+
+    // &--red {
+    //     @include btnColor($slideBtnStartColor--red, $slideEndStartColor--red);
+    // }
+
+    // &--purple {
+    //     @include btnColor($slideBtnStartColor--purple, $slideEndStartColor--purple);
+    // }
+
+    // &:disabled {
+    //     background: $lightkGreyColor;
+    // }
+
+    // &--slider {
+    //     width: 164px;
+    // }
+
+    // &--order {
+    //     width: 287px;
+    // }
+}
