@@ -26,7 +26,7 @@ Button.propTypes = {
     title: PropTypes.string,
     color: PropTypes.string,
     location: PropTypes.string,
-    onclick: PropTypes.bool,
+    onclick: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -34,7 +34,7 @@ Button.defaultProps = {
     title: '',
     color: '',
     location: '',
-    onclick: false,
+    onclick: null,
 };
 
 export default Button;

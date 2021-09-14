@@ -25,32 +25,4 @@
     font-size: $fontSizeButton;
     cursor: pointer;
     @include btnColor($blueColor);
-
-    // &--green {
-    //     @include btnColor($slideBtnStartColor--green, $slideEndStartColor--green);
-    // }
-
-    // &--blue {
-    //     @include btnColor($slideBtnStartColor--blue, $slideEndStartColor--blue);
-    // }
-
-    // &--red {
-    //     @include btnColor($slideBtnStartColor--red, $slideEndStartColor--red);
-    // }
-
-    // &--purple {
-    //     @include btnColor($slideBtnStartColor--purple, $slideEndStartColor--purple);
-    // }
-
-    // &:disabled {
-    //     background: $lightkGreyColor;
-    // }
-
-    // &--slider {
-    //     width: 164px;
-    // }
-
-    // &--order {
-    //     width: 287px;
-    // }
 }

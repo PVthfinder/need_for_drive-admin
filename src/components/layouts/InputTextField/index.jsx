@@ -1,23 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
 
 import './InputTextField.scss';
 
 function InputTextField({
-    // inputValue,
-    // setInputValue,
+    inputValue,
+    setInputValue,
     label,
     placeholder,
+    isRequired,
 }) {
-    const [emailValue, setEmailValue] = useState('');
-    const [activeInput, setActiveInput] = useState(false);
-
-    // const choiseHandler = (item) => {
-    //     setInputValue(item.name);
-    //     setActiveInput(false);
-    // }
-
     return (
         <div className="input_field">
             <label htmlFor={`input_${label}`}>{label}</label>
@@ -28,10 +20,9 @@ function InputTextField({
                     name={label}
                     id={`input_${label}`}
                     placeholder={placeholder}
-                    value={emailValue}
-                    onChange={(e) => setEmailValue(e.target.value)}
-                    onFocus={() => setActiveInput(true)}
-                    autoComplete="off"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    required={isRequired}
                 />
             </div>
         </div>
@@ -39,13 +30,19 @@ function InputTextField({
 }
 
 InputTextField.propTypes = {
+    inputValue: PropTypes.string,
+    setInputValue: PropTypes.func,
     label: PropTypes.string,
     placeholder: PropTypes.string,
+    isRequired: PropTypes.bool,
 };
 
 InputTextField.defaultProps = {
+    inputValue: '',
+    setInputValue: null,
     label: '',
     placeholder: '',
+    isRequired: false,
 };
 
 export default InputTextField;

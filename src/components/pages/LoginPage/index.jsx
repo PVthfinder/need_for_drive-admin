@@ -1,15 +1,35 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 
 import InputTextField from '../../layouts/InputTextField';
 import InputPasswordField from '../../layouts/InputPasswordField';
 import Button from '../../layouts/Button';
 
+import { login } from '../../../api';
+
 import icon from '../../../assets/images/logo_icon.svg';
 
 import './LoginPage.scss';
 
-function index() {
+function LoginPage() {
+    const [emailValue, setEmailValue] = useState('');
+    const [passwordValue, setPasswordValue] = useState('');
+
+    const history = useHistory();
+
+    const handleAuthClick = (evt) => {
+        evt.preventDefault();
+
+        login(emailValue, passwordValue)
+            .then(() => {
+                history.push('/admin');
+            });
+            // .catch(err => {
+            //     console.error('Неверный логин или пароль! ', err);
+            //     alert('Неверный логин или пароль!');
+            // });
+    };
+
     return (
         <div className="login">
             <div className="login__head">
@@ -23,13 +43,19 @@ function index() {
                 <h2 className="login_form__heading">Вход</h2>
 
                 <InputTextField
+                  inputValue={emailValue}
+                  setInputValue={setEmailValue}
                   label="Почта"
                   placeholder="Введите почту"
+                  isRequired
                 />
 
                 <InputPasswordField
+                  inputValue={passwordValue}
+                  setInputValue={setPasswordValue}
                   label="Пароль"
                   placeholder="Введите пароль"
+                  isRequired
                 />
 
                 <div className="login_form__btns">
@@ -37,7 +63,7 @@ function index() {
                     <Button
                         type="button"
                         title="Войти"
-                        // onclick
+                        onclick={handleAuthClick}
                     />
                 </div>
             </form>
@@ -45,4 +71,4 @@ function index() {
     );
 }
 
-export default index;
+export default LoginPage;
