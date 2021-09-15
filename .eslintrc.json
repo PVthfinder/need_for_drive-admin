@@ -28,6 +28,7 @@
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
         "react-hooks/exhaustive-deps": "warn",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "prefer-promise-reject-errors": "off"
     }
 }

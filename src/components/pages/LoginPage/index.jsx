@@ -17,24 +17,27 @@ function LoginPage({setToken}) {
     const [isNoRegister, setIsNoRegister] = useState(false);
     const [isEmailError, setIsEmailError] = useState(false);
     const [isPasswordError, setIsPasswordError] = useState(false);
+    const [isAuthError, setIsAuthError] = useState(false);
 
     const handleAuthClick = (evt) => {
         evt.preventDefault();
 
         if (!emailValue.length) setIsEmailError(true);
         if (!passwordValue.length) setIsPasswordError(true);
-        if (isEmailError || isPasswordError) return;
+        if (!emailValue.length || !passwordValue.length) return;
 
         login(emailValue, passwordValue)
             .then((res) => {
                 if (res.access_token) localStorage.setItem('access_token', res.access_token);
                 if (res.refresh_token) localStorage.setItem('refresh_token', res.refresh_token);
                 setToken(res.access_token ?? null);
+            })
+            .catch((err) => {
+                if (err.httpStatus === 401) {
+                    console.error('Неверный логин или пароль! ', err);
+                    setIsAuthError(true);
+                }
             });
-            // .catch(err => {
-            //     console.error('Неверный логин или пароль! ', err);
-            //     alert('Неверный логин или пароль!');
-            // });
     };
 
     const handleRegisterClick = (evt) => {
@@ -47,6 +50,11 @@ function LoginPage({setToken}) {
         {active: isNoRegister},
     );
 
+    const authErrorClasses = classNames(
+        'login_form__auth_error',
+        {active: isAuthError},
+    );
+
     useEffect(() => {
         if (isNoRegister) {
             setTimeout(() => {
@@ -54,6 +62,14 @@ function LoginPage({setToken}) {
             }, 2000);
         }
     }, [isNoRegister]);
+
+    useEffect(() => {
+        if (isAuthError) {
+            setTimeout(() => {
+                setIsAuthError(false);
+            }, 3000);
+        }
+    }, [isAuthError]);
 
     return (
         <div className="login">
@@ -103,6 +119,10 @@ function LoginPage({setToken}) {
                         title="Войти"
                         onclick={handleAuthClick}
                     />
+                </div>
+
+                <div className={authErrorClasses}>
+                    Неверный логин или пароль!
                 </div>
             </form>
         </div>

@@ -1,7 +1,5 @@
 import {DEFAULT_HEADERS, LOGIN_URL, SYMBOLS} from './config';
 
-// import cookie from 'cookie_js';
-
 function createRandomString(size = 7) {
     let randomString = '';
     while (randomString.length <= size) {
@@ -18,14 +16,21 @@ function addHeaders(headers, options) {
 const doFetch = async (url, options = {}) => {
     const newOptions = addHeaders(DEFAULT_HEADERS, options);
 
+    let response;
+
     try {
-        const response = await fetch(url, newOptions);
-        return await response.json();
+        response = await fetch(url, newOptions);
     } catch (err) {
         console.error('Возникла проблема с запросом: ', err);
-        alert('Возникла проблема с запросом!');
-        return '';
+        return Promise.reject(new Error(err.message));
     }
+
+    if (!response.ok) {
+        const text = await response.text();
+        return Promise.reject({httpStatus: response.status, httpText: text});
+    }
+
+    return response.json();
 };
 
 export async function login(emailValue, passwordValue) {
