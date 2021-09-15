@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -23,9 +23,10 @@ function InputField({
         {active: isError},
     );
 
-    useEffect(() => {
-        if (inputValue.length) setIsError(false);
-    }, [inputValue]);
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        if (value.length) setIsError(false);
+    };
 
     return (
         <div className="input_field">
@@ -38,7 +39,7 @@ function InputField({
                     id={`input_${label}`}
                     placeholder={placeholder}
                     value={inputValue}
-                    onChange={(evt) => setInputValue(evt.target.value)}
+                    onChange={(evt) => handleInputChange(evt.target.value)}
                 />
                 <div className={inputError}>
                     Обязательное поле
