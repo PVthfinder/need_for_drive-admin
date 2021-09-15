@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import InputTextField from '../../layouts/InputTextField';
 import InputPasswordField from '../../layouts/InputPasswordField';
@@ -11,18 +11,18 @@ import icon from '../../../assets/images/logo_icon.svg';
 
 import './LoginPage.scss';
 
-function LoginPage() {
+function LoginPage({setToken}) {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-
-    const history = useHistory();
 
     const handleAuthClick = (evt) => {
         evt.preventDefault();
 
         login(emailValue, passwordValue)
             .then(() => {
-                history.push('/admin');
+                setToken(localStorage.getItem('access_token'));
+                // history.push('/admin');
+                // console.log(res.access_token, res.refresh_token);
             });
             // .catch(err => {
             //     console.error('Неверный логин или пароль! ', err);
@@ -59,7 +59,7 @@ function LoginPage() {
                 />
 
                 <div className="login_form__btns">
-                    <Link to="#!">Запросить доступ</Link>
+                    <a href="#!">Запросить доступ</a>
                     <Button
                         type="button"
                         title="Войти"
@@ -70,5 +70,13 @@ function LoginPage() {
         </div>
     );
 }
+
+LoginPage.propTypes = {
+    setToken: PropTypes.func,
+};
+
+LoginPage.defaultProps = {
+    setToken: null,
+};
 
 export default LoginPage;

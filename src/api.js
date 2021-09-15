@@ -1,6 +1,14 @@
-import {DEFAULT_HEADERS, SECRET, LOGIN_URL} from './config';
+import {DEFAULT_HEADERS, LOGIN_URL, SYMBOLS} from './config';
 
 // import cookie from 'cookie_js';
+
+function createRandomString(size = 7) {
+    let randomString = '';
+    while (randomString.length <= size) {
+        randomString += SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    }
+    return randomString;
+}
 
 function addHeaders(headers, options) {
     const newHeaders = options.headers ? {...options.headers, ...headers} : headers;
@@ -21,19 +29,19 @@ const doFetch = async (url, options = {}) => {
 };
 
 export async function login(emailValue, passwordValue) {
+    const salt = createRandomString(5, true);
+    const basic = window.btoa(`${salt}:4cbcea96de`);
+
     const options = {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Basic ${SECRET}`,
+            Authorization: `Basic ${basic}`,
         },
         body: JSON.stringify({username: emailValue, password: passwordValue}),
         method: 'POST',
     };
 
-    const {
-        access_token: accessToken,
-        refresh_token: refreshToken,
-    } = await doFetch(LOGIN_URL, options);
-    // cookie.set(ACCESS_TOKEN, accessToken);
-    // cookie.set(REFRESH_TOKEN, refreshToken);
+    const response = await doFetch(LOGIN_URL, options);
+    localStorage.setItem('access_token', response.access_token);
+    localStorage.setItem('refresh_token', response.refresh_token);
 }
