@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import InputTextField from '../../layouts/InputTextField';
 import InputPasswordField from '../../layouts/InputPasswordField';
@@ -14,6 +15,7 @@ import './LoginPage.scss';
 function LoginPage({setToken}) {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
+    const [isNoRegister, setIsNoRegister] = useState(false);
 
     const handleAuthClick = (evt) => {
         evt.preventDefault();
@@ -29,6 +31,24 @@ function LoginPage({setToken}) {
             //     alert('Неверный логин или пароль!');
             // });
     };
+
+    const handleRegisterClick = (evt) => {
+        evt.preventDefault();
+        setIsNoRegister(true);
+    };
+
+    const registerErrorClasses = classNames(
+        'login_form__register_error',
+        {active: isNoRegister},
+    );
+
+    useEffect(() => {
+        if (isNoRegister) {
+            setTimeout(() => {
+                setIsNoRegister(false);
+            }, 2000);
+        }
+    }, [isNoRegister]);
 
     return (
         <div className="login">
@@ -59,7 +79,16 @@ function LoginPage({setToken}) {
                 />
 
                 <div className="login_form__btns">
-                    <a href="#!">Запросить доступ</a>
+                    <a
+                        href="#!"
+                        className="login_form__register"
+                        onClick={handleRegisterClick}
+                    >
+                        Запросить доступ
+                    </a>
+                    <div className={registerErrorClasses}>
+                        Извините, регистрация временно недоступна...
+                    </div>
                     <Button
                         type="button"
                         title="Войти"
