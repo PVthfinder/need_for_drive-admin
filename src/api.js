@@ -42,6 +42,8 @@ export async function login(emailValue, passwordValue) {
     };
 
     const response = await doFetch(LOGIN_URL, options);
-    localStorage.setItem('access_token', response.access_token);
-    localStorage.setItem('refresh_token', response.refresh_token);
+    return {
+        access_token: response.access_token,
+        refresh_token: response.refresh_token,
+    };
 }

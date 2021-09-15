@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import InputTextField from '../../layouts/InputTextField';
-import InputPasswordField from '../../layouts/InputPasswordField';
+import InputField from '../../layouts/InputField';
 import Button from '../../layouts/Button';
 
 import { login } from '../../../api';
@@ -16,15 +15,21 @@ function LoginPage({setToken}) {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [isNoRegister, setIsNoRegister] = useState(false);
+    const [isEmailError, setIsEmailError] = useState(false);
+    const [isPasswordError, setIsPasswordError] = useState(false);
 
     const handleAuthClick = (evt) => {
         evt.preventDefault();
 
+        if (!emailValue.length) setIsEmailError(true);
+        if (!passwordValue.length) setIsPasswordError(true);
+        if (isEmailError || isPasswordError) return;
+
         login(emailValue, passwordValue)
-            .then(() => {
-                setToken(localStorage.getItem('access_token'));
-                // history.push('/admin');
-                // console.log(res.access_token, res.refresh_token);
+            .then((res) => {
+                if (res.access_token) localStorage.setItem('access_token', res.access_token);
+                if (res.refresh_token) localStorage.setItem('refresh_token', res.refresh_token);
+                setToken(res.access_token ?? null);
             });
             // .catch(err => {
             //     console.error('Неверный логин или пароль! ', err);
@@ -62,20 +67,24 @@ function LoginPage({setToken}) {
             <form className="login_form">
                 <h2 className="login_form__heading">Вход</h2>
 
-                <InputTextField
+                <InputField
+                  type="text"
                   inputValue={emailValue}
                   setInputValue={setEmailValue}
                   label="Почта"
                   placeholder="Введите почту"
-                  isRequired
+                  isError={isEmailError}
+                  setIsError={setIsEmailError}
                 />
 
-                <InputPasswordField
+                <InputField
+                  type="password"
                   inputValue={passwordValue}
                   setInputValue={setPasswordValue}
                   label="Пароль"
                   placeholder="Введите пароль"
-                  isRequired
+                  isError={isPasswordError}
+                  setIsError={setIsPasswordError}
                 />
 
                 <div className="login_form__btns">
