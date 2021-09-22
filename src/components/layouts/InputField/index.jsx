@@ -25,7 +25,7 @@ function InputField({
 
     const handleInputChange = (value) => {
         setInputValue(value);
-        if (value.length) setIsError(false);
+        if (value.length && setIsError) setIsError(false);
     };
 
     return (

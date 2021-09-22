@@ -1,0 +1,39 @@
+@import "../../variables";
+
+.menu {
+    &__socials {
+        display: flex;
+    }
+
+    &__social {
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        transform: translateX(-1000px);
+        transition-property: transform;
+        transition-duration: 0.5s;
+
+        svg {
+            path{
+                transition: fill 0.2s;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-right: 24px;
+        }
+
+        &:hover {
+            svg {
+                path {
+                    fill: $mainAccentColor;
+                }
+            }
+        }
+
+        &.opened {
+            transform: translateX(0);
+        }
+    }
+}

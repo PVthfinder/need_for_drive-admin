@@ -1,4 +1,5 @@
-import {DEFAULT_HEADERS, LOGIN_URL, SYMBOLS} from './config';
+import {DEFAULT_HEADERS, SECRET, LOGIN_URL} from './constants/fetchConstants';
+import {SYMBOLS} from './constants/commonConstants';
 
 function createRandomString(size = 7) {
     let randomString = '';
@@ -35,7 +36,7 @@ const doFetch = async (url, options = {}) => {
 
 export async function login(emailValue, passwordValue) {
     const salt = createRandomString(5, true);
-    const basic = window.btoa(`${salt}:4cbcea96de`);
+    const basic = window.btoa(`${salt}:${SECRET}`);
 
     const options = {
         headers: {

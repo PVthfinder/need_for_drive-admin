@@ -1,6 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import {
+    setEmailText,
+    setPasswordText,
+    setEmailError,
+    setPasswordError,
+    setIsNoRegister,
+    setIsAuthError,
+} from '../../../store/login/actionCreators';
 
 import InputField from '../../layouts/InputField';
 import Button from '../../layouts/Button';
@@ -12,21 +22,22 @@ import icon from '../../../assets/images/logo_icon.svg';
 import './LoginPage.scss';
 
 function LoginPage({setToken}) {
-    const [emailValue, setEmailValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
-    const [isNoRegister, setIsNoRegister] = useState(false);
-    const [isEmailError, setIsEmailError] = useState(false);
-    const [isPasswordError, setIsPasswordError] = useState(false);
-    const [isAuthError, setIsAuthError] = useState(false);
+    const {
+        email,
+        password,
+        isNoRegister,
+        isAuthError,
+    } = useSelector((state) => state.login);
+    const dispatch = useDispatch();
 
     const handleAuthClick = (evt) => {
         evt.preventDefault();
 
-        if (!emailValue.length) setIsEmailError(true);
-        if (!passwordValue.length) setIsPasswordError(true);
-        if (!emailValue.length || !passwordValue.length) return;
+        if (!email.emailValue.length) dispatch(setEmailError(true));
+        if (!password.passwordValue.length) dispatch(setPasswordError(true));
+        if (!email.emailValue.length || !password.passwordValue.length) return;
 
-        login(emailValue, passwordValue)
+        login(email.emailValue, password.passwordValue)
             .then((res) => {
                 if (res.access_token) localStorage.setItem('access_token', res.access_token);
                 if (res.refresh_token) localStorage.setItem('refresh_token', res.refresh_token);
@@ -35,14 +46,14 @@ function LoginPage({setToken}) {
             .catch((err) => {
                 if (err.httpStatus === 401) {
                     console.error('Неверный логин или пароль! ', err);
-                    setIsAuthError(true);
+                    dispatch(setIsAuthError(true));
                 }
             });
     };
 
     const handleRegisterClick = (evt) => {
         evt.preventDefault();
-        setIsNoRegister(true);
+        dispatch(setIsNoRegister(true));
     };
 
     const registerErrorClasses = classNames(
@@ -58,7 +69,7 @@ function LoginPage({setToken}) {
     useEffect(() => {
         if (isNoRegister) {
             setTimeout(() => {
-                setIsNoRegister(false);
+                dispatch(setIsNoRegister(false));
             }, 2000);
         }
     }, [isNoRegister]);
@@ -66,10 +77,26 @@ function LoginPage({setToken}) {
     useEffect(() => {
         if (isAuthError) {
             setTimeout(() => {
-                setIsAuthError(false);
+                dispatch(setIsAuthError(false));
             }, 3000);
         }
     }, [isAuthError]);
+
+    const setEmailValue = (emailValue) => {
+        dispatch(setEmailText(emailValue));
+    };
+
+    const setPasswordValue = (passwordValue) => {
+        dispatch(setPasswordText(passwordValue));
+    };
+
+    const setIsEmailError = (isError) => {
+        dispatch(setEmailError(isError));
+    };
+
+    const setIsPasswordError = (isError) => {
+        dispatch(setPasswordError(isError));
+    };
 
     return (
         <div className="login">
@@ -85,21 +112,21 @@ function LoginPage({setToken}) {
 
                 <InputField
                   type="text"
-                  inputValue={emailValue}
+                  inputValue={email.emailValue}
                   setInputValue={setEmailValue}
                   label="Почта"
                   placeholder="Введите почту"
-                  isError={isEmailError}
+                  isError={email.isEmailError}
                   setIsError={setIsEmailError}
                 />
 
                 <InputField
                   type="password"
-                  inputValue={passwordValue}
+                  inputValue={password.passwordValue}
                   setInputValue={setPasswordValue}
                   label="Пароль"
                   placeholder="Введите пароль"
-                  isError={isPasswordError}
+                  isError={password.isPasswordError}
                   setIsError={setIsPasswordError}
                 />
 
@@ -130,10 +157,18 @@ function LoginPage({setToken}) {
 }
 
 LoginPage.propTypes = {
+    // email: PropTypes.string,
+    // password: PropTypes.string,
+    // isNoRegister: PropTypes.bool,
+    // isAuthError: PropTypes.bool,
     setToken: PropTypes.func,
 };
 
 LoginPage.defaultProps = {
+    // email: '',
+    // password: '',
+    // isNoRegister: false,
+    // isAuthError: false,
     setToken: null,
 };
 
