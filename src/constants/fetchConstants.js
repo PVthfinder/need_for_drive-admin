@@ -8,6 +8,4 @@ const DEFAULT_HEADERS = {
     'X-Api-Factory-Application-Id': API_KEY,
 };
 
-const SYMBOLS = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890';
-
-export {DEFAULT_HEADERS, SECRET, LOGIN_URL, SYMBOLS};
+export {DEFAULT_HEADERS, SECRET, LOGIN_URL};
