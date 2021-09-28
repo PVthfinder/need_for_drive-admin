@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import {
@@ -15,13 +14,14 @@ import {
 import InputField from '../../layouts/InputField';
 import Button from '../../layouts/Button';
 
-import { login } from '../../../api';
+import { login, checkUser } from '../../../api';
+import { userLogin, userCheck } from '../../../store/user/actionCreators';
 
 import icon from '../../../assets/images/logo_icon.svg';
 
 import './LoginPage.scss';
 
-function LoginPage({setToken}) {
+function LoginPage() {
     const {
         email,
         password,
@@ -41,7 +41,9 @@ function LoginPage({setToken}) {
             .then((res) => {
                 if (res.access_token) localStorage.setItem('access_token', res.access_token);
                 if (res.refresh_token) localStorage.setItem('refresh_token', res.refresh_token);
-                setToken(res.access_token ?? null);
+                dispatch(userLogin());
+                checkUser(res.access_token)
+                    .then((response) => dispatch(userCheck(response.username)));
             })
             .catch((err) => {
                 if (err.httpStatus === 401) {
@@ -155,21 +157,5 @@ function LoginPage({setToken}) {
         </div>
     );
 }
-
-LoginPage.propTypes = {
-    // email: PropTypes.string,
-    // password: PropTypes.string,
-    // isNoRegister: PropTypes.bool,
-    // isAuthError: PropTypes.bool,
-    setToken: PropTypes.func,
-};
-
-LoginPage.defaultProps = {
-    // email: '',
-    // password: '',
-    // isNoRegister: false,
-    // isAuthError: false,
-    setToken: null,
-};
 
 export default LoginPage;

@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
 import InputField from '../InputField';
 
+import { userLogout } from '../../../store/user/actionCreators';
+
 import avatarSrc from '../../../assets/images/avatar.jpg';
-import searchIcon from '../../../assets/images/search_icon.svg';
 
 import './Header.scss';
 
 function Header() {
     const [searchValue, setSearchValue] = useState('');
     const [isActiveDropdown, setIsActiveDropdown] = useState(false);
+
+    const {name} = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     const dropdownIconClasses = classNames(
         'user_account__dropdown_icon',
@@ -27,6 +32,12 @@ function Header() {
         setIsActiveDropdown((prevIsActiveDropdown) => (
             !prevIsActiveDropdown
         ));
+    };
+
+    const handleLogoutClick = () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        dispatch(userLogout());
     };
 
     return (
@@ -64,13 +75,20 @@ function Header() {
                 aria-label="dropdown menu"
             >
                 <img className="user_account__avatar" src={avatarSrc} alt="user_avatar" />
-                <span className="user_account__name">User</span>
+                <span className="user_account__name">{name}</span>
                 <span
                     className={dropdownIconClasses}
                 />
                 <div className={dropdownMenuClasses}>
                     <ul className="dropdown_menu__list">
-                        <li className="dropdown_menu__item">Выход</li>
+                        <li className="dropdown_menu__item">
+                            <a
+                                href="#!"
+                                onClick={handleLogoutClick}
+                            >
+                                Выход
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

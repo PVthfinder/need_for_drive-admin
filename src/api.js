@@ -1,4 +1,10 @@
-import {DEFAULT_HEADERS, SECRET, LOGIN_URL} from './constants/fetchConstants';
+import {
+    DEFAULT_HEADERS,
+    SECRET,
+    LOGIN_URL,
+    CHECK_URL,
+    LOGOUT_URL,
+} from './constants/fetchConstants';
 import {SYMBOLS} from './constants/commonConstants';
 
 function createRandomString(size = 7) {
@@ -11,7 +17,7 @@ function createRandomString(size = 7) {
 
 function addHeaders(headers, options) {
     const newHeaders = options.headers ? {...options.headers, ...headers} : headers;
-    return {...options, headers: newHeaders};
+    return {headers: newHeaders, ...options};
 }
 
 const doFetch = async (url, options = {}) => {
@@ -52,4 +58,27 @@ export async function login(emailValue, passwordValue) {
         access_token: response.access_token,
         refresh_token: response.refresh_token,
     };
+}
+
+export async function checkUser(accessToken) {
+    const options = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+
+    const response = await doFetch(CHECK_URL, options);
+    return response;
+}
+
+export async function logout(accessToken) {
+    const options = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        method: 'POST',
+    };
+
+    const response = await doFetch(LOGOUT_URL, options);
+    return response;
 }

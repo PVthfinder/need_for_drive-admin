@@ -104,8 +104,15 @@
         li {
             cursor: pointer;
 
+            a {
+                display: block;
+                color: $mainGreyColor;
+            }
+
             &:hover {
-                color: $blueColor;
+                a {
+                    color: $blueColor;
+                }
             }
         }
     }

@@ -1,17 +1,34 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+
+import { userCheck } from './store/user/actionCreators';
 
 import LoginPage from './components/pages/LoginPage';
 import AdminPage from './components/pages/AdminPage';
 
+import { checkUser } from './api';
+
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('access_token'));
+  const {isLogged} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isLogged) {
+      const accessToken = localStorage.getItem('access_token');
+
+      if (accessToken) {
+        checkUser(accessToken)
+          .then((res) => dispatch(userCheck(res.username)));
+      }
+    }
+  }, []);
 
   return (
     <div className="App">
       {
-        !token
-        ? <LoginPage setToken={setToken} />
+        !isLogged
+        ? <LoginPage />
         : (
           <Router basename="need_for_drive-admin">
             <Switch>
