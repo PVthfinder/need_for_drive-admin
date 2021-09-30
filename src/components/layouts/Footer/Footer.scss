@@ -1,0 +1,45 @@
+@import "../../../_variables.scss";
+
+.page_footer {
+    font-family: $fontHelveticaRegular;
+    padding: 27px;
+    box-sizing: border-box;
+    height: 69px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $whiteColor;
+
+    &__copyright,
+    &__links {
+        font-size: $fontSizeFooter;
+        line-height: $lineHeightFooter;
+    }
+
+    &__links {
+        a {
+            color: $blueColor;
+
+            &:not(:last-child) {
+                margin-right: 16px;
+            }
+
+            &:hover {
+                color: $lighterGreyColor;
+            }
+        }
+    }
+
+    &__copyright {
+        color: $lighterGreyColor;
+    }
+
+    &__phone {
+        color: $mainBlackColor;
+
+        &:hover,
+        &:active {
+            color: $mainAccentColor;
+        }
+    }
+}

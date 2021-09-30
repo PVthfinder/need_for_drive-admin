@@ -22,9 +22,12 @@ ul {
   list-style: none;
 }
 
-.app {
+.App {
   height: 100vh;
-  margin: 0 auto;
   display: flex;
-  position: relative;
+}
+
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
 }
