@@ -25,4 +25,9 @@
     font-size: $fontSizeButton;
     cursor: pointer;
     @include btnColor($blueColor);
+
+    &--request_error {
+        width: 95px;
+        margin-top: 35px;
+    }
 }

@@ -1,0 +1,36 @@
+@import '../../../variables';
+
+.login {
+    .login_form {
+        &__register {
+            font-size: $fontSizeLink;
+            line-height: $lineHeightLink;
+            color: $blueColor;
+        }
+
+        &__register_error {
+            width: 150px;
+            background-color: $whiteColor;
+            font-size: $fontSizeLink;
+            line-height: $lineHeightLink;
+            color: $redColor;
+            padding: 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            box-shadow: 0 0 5px rgba(196, 24, 60, 0.5);
+            position: absolute;
+            top: 0;
+            right: 100%;
+            top: 0;
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: 100% 50%;
+            transition: all 0.3s;
+
+            &.active {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    }
+}
