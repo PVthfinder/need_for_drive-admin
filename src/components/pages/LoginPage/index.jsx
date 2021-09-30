@@ -7,12 +7,12 @@ import {
     setPasswordText,
     setEmailError,
     setPasswordError,
-    setIsNoRegister,
     setIsAuthError,
 } from '../../../store/login/actionCreators';
 
 import InputField from '../../layouts/InputField';
 import Button from '../../layouts/Button';
+import RegisterLink from '../../layouts/RegisterLink';
 
 import { login, checkUser } from '../../../api';
 import { userLogin, userCheck } from '../../../store/user/actionCreators';
@@ -25,7 +25,6 @@ function LoginPage() {
     const {
         email,
         password,
-        isNoRegister,
         isAuthError,
     } = useSelector((state) => state.login);
     const dispatch = useDispatch();
@@ -53,28 +52,10 @@ function LoginPage() {
             });
     };
 
-    const handleRegisterClick = (evt) => {
-        evt.preventDefault();
-        dispatch(setIsNoRegister(true));
-    };
-
-    const registerErrorClasses = classNames(
-        'login_form__register_error',
-        {active: isNoRegister},
-    );
-
     const authErrorClasses = classNames(
         'login_form__auth_error',
         {active: isAuthError},
     );
-
-    useEffect(() => {
-        if (isNoRegister) {
-            setTimeout(() => {
-                dispatch(setIsNoRegister(false));
-            }, 2000);
-        }
-    }, [isNoRegister]);
 
     useEffect(() => {
         if (isAuthError) {
@@ -133,16 +114,7 @@ function LoginPage() {
                 />
 
                 <div className="login_form__btns">
-                    <a
-                        href="#!"
-                        className="login_form__register"
-                        onClick={handleRegisterClick}
-                    >
-                        Запросить доступ
-                    </a>
-                    <div className={registerErrorClasses}>
-                        Извините, регистрация временно недоступна...
-                    </div>
+                    <RegisterLink/>
                     <Button
                         type="button"
                         title="Войти"
