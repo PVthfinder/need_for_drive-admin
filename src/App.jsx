@@ -15,12 +15,8 @@ function App() {
 
   useEffect(() => {
     if (!isLogged) {
-      const accessToken = localStorage.getItem('access_token');
-
-      if (accessToken) {
-        checkUser(accessToken)
-          .then((res) => dispatch(userCheck(res.username)));
-      }
+      checkUser()
+        .then((res) => dispatch(userCheck(res.username)));
     }
   }, []);
 
