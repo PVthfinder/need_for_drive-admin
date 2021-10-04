@@ -1,0 +1,42 @@
+@import '../../../variables';
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    button,
+    span {
+        font-family: $fontHelveticaRegular;
+        font-size: $fontSizePagination;
+        line-height: $lineHeightPagination;
+        color: $blueColor;
+
+        &:not(:last-child) {
+            margin-right: 7px;
+        }
+    }
+
+    span.current_page {
+        color: $whiteColor;
+        background-color: $blueColor;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 18px;
+
+        &--hundreds {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+        }
+    }
+}
