@@ -76,13 +76,36 @@
             height: 0;
             width: 4px;
             background-color: $blueColor;
-            // transform: translate(-50%);
             transition: height 0.2s ease-in-out;
           }
 
           &:hover::before,
           &:focus::before {
             height: 100%;
+          }
+    }
+
+    &__active_menu_item {
+        &:hover {
+            color: $blueColor;
+            background-color: $backgroundAdminColor;
+
+            svg {
+                path {
+                    fill: $blueColor;
+                }
+            }
+        }
+
+        &::before {
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: "";
+            height: 100%;
+            width: 4px;
+            background-color: $blueColor;
           }
     }
 }

@@ -5,13 +5,13 @@ import MenuItem from './MenuItem';
 
 import icon from '../../../assets/images/logo_icon.svg';
 
-import {menuItems} from '../../../assets/db';
+import {menuItems} from '../../../constants/commonConstants';
 
 import './Menu.scss';
 
 function Menu() {
     return (
-        <div className="menu">
+        <nav className="menu">
             <Link
             to="/admin"
                 className="menu__head"
@@ -31,7 +31,7 @@ function Menu() {
                     />
                 ))}
             </div>
-        </div>
+        </nav>
     );
 }
 
