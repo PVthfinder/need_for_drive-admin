@@ -4,6 +4,9 @@ import {
     LOGIN_URL,
     CHECK_URL,
     LOGOUT_URL,
+    ITEMS_PER_PAGE,
+    ORDERS_URL,
+    STATUSES_URL,
 } from './constants/fetchConstants';
 import {SYMBOLS} from './constants/commonConstants';
 
@@ -17,7 +20,7 @@ function createRandomString(size = 7) {
 
 function addHeaders(headers, options) {
     const newHeaders = options.headers ? {...options.headers, ...headers} : headers;
-    return {headers: newHeaders, ...options};
+    return { ...options, headers: newHeaders};
 }
 
 const doFetch = async (url, options = {}) => {
@@ -40,6 +43,11 @@ const doFetch = async (url, options = {}) => {
     return response.json();
 };
 
+const getAuthHeader = () => {
+    const accessToken = localStorage.getItem('access_token');
+    return {Authorization: `Bearer ${accessToken}`};
+};
+
 export async function login(emailValue, passwordValue) {
     const salt = createRandomString(5, true);
     const basic = window.btoa(`${salt}:${SECRET}`);
@@ -60,25 +68,76 @@ export async function login(emailValue, passwordValue) {
     };
 }
 
-export async function checkUser(accessToken) {
+export async function checkUser() {
     const options = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
+        headers: getAuthHeader(),
     };
 
     const response = await doFetch(CHECK_URL, options);
     return response;
 }
 
-export async function logout(accessToken) {
+export async function logout() {
     const options = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
+        headers: getAuthHeader(),
         method: 'POST',
     };
 
     const response = await doFetch(LOGOUT_URL, options);
+    return response;
+}
+
+export async function getOrders(page) {
+    const options = {
+        headers: getAuthHeader(),
+    };
+
+    let filterUrl = ORDERS_URL;
+
+    filterUrl = page ? `${filterUrl}?page=${page - 1}&limit=${ITEMS_PER_PAGE}` : filterUrl;
+
+    const response = await doFetch(filterUrl, options);
+    return response;
+}
+
+export async function getSingleOrder(id) {
+    const options = {
+        headers: getAuthHeader(),
+    };
+
+    const response = await doFetch(`${ORDERS_URL}/${id}`, options);
+    return response;
+}
+
+export async function changeOrder(orderObj) {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeader(),
+        },
+        method: 'PUT',
+        body: JSON.stringify(orderObj),
+    };
+
+    const response = await doFetch(`${ORDERS_URL}/${orderObj.id}`, options);
+    return response;
+}
+
+export async function deleteOrder(id) {
+    const options = {
+        headers: getAuthHeader(),
+        method: 'DELETE',
+    };
+
+    const response = await doFetch(`${ORDERS_URL}/${id}`, options);
+    return response;
+}
+
+export async function getStatuses() {
+    const options = {
+        headers: getAuthHeader(),
+    };
+
+    const response = await doFetch(STATUSES_URL, options);
     return response;
 }

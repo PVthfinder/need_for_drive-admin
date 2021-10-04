@@ -1,0 +1,12 @@
+.order_item {
+    &__options,
+    &__btns {
+        margin-top: 30px;
+    }
+
+    &__btns {
+        .btn:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+}
