@@ -3,6 +3,7 @@
 .error_block {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
     &__status {
@@ -10,7 +11,6 @@
         font-size: $fontSizeErrorStatus;
         line-height: $lineHeightErrorDesc;
         color: $errorGreyColor;
-        margin-top: 350px;
     }
 
     &__desc {
