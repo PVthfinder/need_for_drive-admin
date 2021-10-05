@@ -5,7 +5,7 @@ import MenuItem from './MenuItem';
 
 import icon from '../../../assets/images/logo_icon.svg';
 
-import {menuItems} from '../../../constants/commonConstants';
+import {MENU_ITEMS} from '../../../constants/commonConstants';
 
 import './Menu.scss';
 
@@ -22,7 +22,7 @@ function Menu() {
                 <h1 className="menu__heading">Need for drive</h1>
             </Link>
             <div className="menu__items">
-                {menuItems.map((item) => (
+                {MENU_ITEMS.map((item) => (
                     <MenuItem
                         key={item.title}
                         img={item.img}

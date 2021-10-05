@@ -4,7 +4,7 @@ import React from 'react';
 
 export const SYMBOLS = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890';
 
-export const menuItems = [
+export const MENU_ITEMS = [
     {
         title: 'Карточка автомобиля',
         path: '/admin/cars/:id',
@@ -31,9 +31,11 @@ export const menuItems = [
     },
 ];
 
-export const timeGradation = [
+export const TIME_GRADATION = [
     {name: 'За неделю'},
     {name: 'За месяц'},
     {name: 'За год'},
     {name: 'За сутки'},
 ];
+
+export const PRELOADER_ITEMS_ARR = [1, 2, 3, 4, 5];
