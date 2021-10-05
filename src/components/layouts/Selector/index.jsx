@@ -42,7 +42,7 @@ function Selector({
             <ul className={selectorClasses}>
                 {selectorArr && selectorArr.map((item) => (
                     <li
-                        key={item.name}
+                        key={item.id ?? item.name}
                         onClick={() => chooseHandler(item)}
                         onKeyDown={() => chooseHandler(item)}
                         role="option"

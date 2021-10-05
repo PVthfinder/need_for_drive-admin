@@ -46,6 +46,8 @@
 
     &__options {
         width: 100%;
+        max-height: 300px;
+        overflow: auto;
         position: absolute;
         left: 0;
         top: 100%;
