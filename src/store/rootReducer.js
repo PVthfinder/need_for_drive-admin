@@ -6,7 +6,8 @@ import { requestErrorReducer } from './requestError/reducers';
 import { ordersReducer } from './orders/reducers';
 import { paginationReducer } from './pagination/reducers';
 import { orderReducer } from './order/reducers';
-import { statusesReducer } from './statuses/reducers';
+import { entitiesReducer } from './entities/reducers';
+import { popupReducer } from './popup/reducers';
 
 export const rootReducer = combineReducers({
     login: loginReducer,
@@ -15,5 +16,6 @@ export const rootReducer = combineReducers({
     orders: ordersReducer,
     pagination: paginationReducer,
     order: orderReducer,
-    statuses: statusesReducer,
+    entities: entitiesReducer,
+    popup: popupReducer,
 });

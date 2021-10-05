@@ -5,30 +5,33 @@ import Selector from '../layouts/Selector';
 import Button from '../layouts/Button';
 import Pagination from '../layouts/Pagination';
 import OrderCard from './OrderCard';
+import Preloader from '../layouts/Preloader';
 
-import { getOrders, getStatuses } from '../../api';
+import { getOrders, getEntity } from '../../api';
 
-import { ITEMS_PER_PAGE } from '../../constants/fetchConstants';
+import { ITEMS_PER_PAGE, STATUSES_DB, CARS_DB, CITIES_DB } from '../../constants/fetchConstants';
+
 import { setOrders, setVisibleOrders } from '../../store/orders/actionCreators';
 import { setRequestError } from '../../store/requestError/actionCreators';
-import { setStatuses } from '../../store/statuses/actionCreators';
+import { setStatuses, setCars, setCities } from '../../store/entities/actionCreators';
 
-import { timeGradation } from '../../constants/commonConstants';
+import { TIME_GRADATION } from '../../constants/commonConstants';
 
 import './Orders.scss';
 
 function Orders() {
     const {orders, visibleOrders} = useSelector((state) => state.orders);
     const {currentPage} = useSelector((state) => state.pagination);
-    const {statuses} = useSelector((state) => state.statuses);
+    const {statuses, cars, cities} = useSelector((state) => state.entities);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getStatuses()
+        getEntity(CARS_DB)
+            .then((data) => dispatch(setCars(data.data)));
+        getEntity(STATUSES_DB)
             .then((data) => dispatch(setStatuses(data.data)));
-    }, []);
-
-    useEffect(() => {
+        getEntity(CITIES_DB)
+            .then((data) => dispatch(setCities(data.data)));
         getOrders()
             .then((data) => (data ? dispatch(setOrders(data.data)) : null))
             .catch((err) => {
@@ -36,6 +39,9 @@ function Orders() {
                     dispatch(setRequestError(err.httpStatus));
                 }
             });
+    }, []);
+
+    useEffect(() => {
         getOrders(currentPage)
             .then((data) => (data ? dispatch(setVisibleOrders(data.data)) : null));
     }, [currentPage]);
@@ -45,17 +51,23 @@ function Orders() {
             <header className="admin_content__header">Заказы</header>
             <article className="admin_content__main admin_article">
                 <div className="admin_article__header">
-                    <div className="admin_article__header_inputs">
+                    <div className="admin_article__filters">
                         <Selector
                             title="период"
-                            selectorArr={timeGradation}
+                            selectorArr={TIME_GRADATION}
                         />
                         <Selector
                             title="статус"
                             selectorArr={statuses}
                         />
-                        {/* <Selector/>
-                        <Selector/> */}
+                        <Selector
+                            title="модель машины"
+                            selectorArr={cars}
+                        />
+                        <Selector
+                            title="город"
+                            selectorArr={cities}
+                        />
                     </div>
                     <Button
                         type="button"
@@ -63,18 +75,24 @@ function Orders() {
                         location="admin_article_header"
                     />
                 </div>
-                <div className="admin_article__main">
-                    {
-                        visibleOrders.length
-                        ? visibleOrders.map((item) => (
-                            <OrderCard
-                                key={item.id}
-                                order={item}
-                            />
-                        ))
-                        : 'Нет заказов, удовлетворяющих условиям фильтров'
-                    }
-                </div>
+                {
+                    orders.length
+                    ? (
+                        <div className="admin_article__main">
+                            {
+                                visibleOrders.length
+                                ? visibleOrders.map((item) => (
+                                    <OrderCard
+                                        key={item.id}
+                                        order={item}
+                                    />
+                                ))
+                                : 'Нет заказов, удовлетворяющих условиям фильтров'
+                            }
+                        </div>
+                    )
+                    : <Preloader/>
+                }
                 <div className="admin_article__footer">
                     <Pagination
                         currentPage={currentPage}

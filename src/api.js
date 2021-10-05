@@ -6,7 +6,7 @@ import {
     LOGOUT_URL,
     ITEMS_PER_PAGE,
     ORDERS_URL,
-    STATUSES_URL,
+    API_DB_URL,
 } from './constants/fetchConstants';
 import {SYMBOLS} from './constants/commonConstants';
 
@@ -133,11 +133,11 @@ export async function deleteOrder(id) {
     return response;
 }
 
-export async function getStatuses() {
+export async function getEntity(entityName) {
     const options = {
         headers: getAuthHeader(),
     };
 
-    const response = await doFetch(STATUSES_URL, options);
+    const response = await doFetch(`${API_DB_URL}/${entityName}`, options);
     return response;
 }
