@@ -14,7 +14,7 @@ import InputField from '../../layouts/InputField';
 import Button from '../../layouts/Button';
 import RegisterLink from '../../layouts/RegisterLink';
 
-import { login, checkUser } from '../../../api';
+import { login, checkUser } from '../../../utils/apiUtils';
 import { userLogin, userCheck } from '../../../store/user/actionCreators';
 
 import icon from '../../../assets/images/logo_icon.svg';

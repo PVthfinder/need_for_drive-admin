@@ -7,7 +7,7 @@ import { userCheck } from './store/user/actionCreators';
 import LoginPage from './components/pages/LoginPage';
 import AdminPage from './components/pages/AdminPage';
 
-import { checkUser } from './api';
+import { checkUser } from './utils/apiUtils';
 
 function App() {
   const {isLogged} = useSelector((state) => state.user);

@@ -11,7 +11,7 @@ import { setOrder, setOrderAdditionalOption, setOrderStatus } from '../../store/
 import { setStatuses } from '../../store/entities/actionCreators';
 import { setPopup } from '../../store/popup/actionCreators';
 
-import { getSingleOrder, getEntity, changeOrder, deleteOrder } from '../../api';
+import { getSingleOrder, getEntity, changeOrder, deleteOrder } from '../../utils/apiUtils';
 import { STATUSES_DB } from '../../constants/fetchConstants';
 
 import './OrderItem.scss';
