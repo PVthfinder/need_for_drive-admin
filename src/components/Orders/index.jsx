@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
-import Selector from '../layouts/Selector';
-import Button from '../layouts/Button';
+import OrdersFilters from './OrdersFilter';
 import Pagination from '../layouts/Pagination';
 import OrderCard from './OrderCard';
 import Preloader from '../layouts/Preloader';
 
-import { getOrders, getEntity } from '../../api';
+import { getOrders, getEntity } from '../../utils/apiUtils';
 
 import { ITEMS_PER_PAGE, STATUSES_DB, CARS_DB, CITIES_DB } from '../../constants/fetchConstants';
 
@@ -15,15 +15,13 @@ import { setOrders, setVisibleOrders } from '../../store/orders/actionCreators';
 import { setRequestError } from '../../store/requestError/actionCreators';
 import { setStatuses, setCars, setCities } from '../../store/entities/actionCreators';
 
-import { TIME_GRADATION } from '../../constants/commonConstants';
-
 import './Orders.scss';
 
 function Orders() {
     const {orders, visibleOrders} = useSelector((state) => state.orders);
     const {currentPage} = useSelector((state) => state.pagination);
-    const {statuses, cars, cities} = useSelector((state) => state.entities);
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         getEntity(CARS_DB)
@@ -32,18 +30,31 @@ function Orders() {
             .then((data) => dispatch(setStatuses(data.data)));
         getEntity(CITIES_DB)
             .then((data) => dispatch(setCities(data.data)));
-        getOrders()
-            .then((data) => (data ? dispatch(setOrders(data.data)) : null))
+    }, []);
+
+    useEffect(() => {
+        getOrders(location.search)
+            .then((data) => (data ? dispatch(setOrders(data.data)) : []))
             .catch((err) => {
                 if (err.httpStatus) {
                     dispatch(setRequestError(err.httpStatus));
                 }
             });
-    }, []);
+
+        getOrders(location.search, 1)
+        .then((data) => (data ? dispatch(setVisibleOrders(data.data)) : []));
+
+        return (() => {
+            dispatch(setOrders(null));
+            dispatch(setVisibleOrders(null));
+        });
+    }, [location.search]);
 
     useEffect(() => {
-        getOrders(currentPage)
-            .then((data) => (data ? dispatch(setVisibleOrders(data.data)) : null));
+        getOrders(location.search, currentPage)
+            .then((data) => (data ? dispatch(setVisibleOrders(data.data)) : []));
+
+            return (() => dispatch(setVisibleOrders(null)));
     }, [currentPage]);
 
     return (
@@ -51,32 +62,10 @@ function Orders() {
             <header className="admin_content__header">Заказы</header>
             <article className="admin_content__main admin_article">
                 <div className="admin_article__header">
-                    <div className="admin_article__filters">
-                        <Selector
-                            title="период"
-                            selectorArr={TIME_GRADATION}
-                        />
-                        <Selector
-                            title="статус"
-                            selectorArr={statuses}
-                        />
-                        <Selector
-                            title="модель машины"
-                            selectorArr={cars}
-                        />
-                        <Selector
-                            title="город"
-                            selectorArr={cities}
-                        />
-                    </div>
-                    <Button
-                        type="button"
-                        title=" Применить"
-                        location="admin_article_header"
-                    />
+                    <OrdersFilters/>
                 </div>
                 {
-                    orders.length
+                    orders && visibleOrders
                     ? (
                         <div className="admin_article__main">
                             {
@@ -97,7 +86,7 @@ function Orders() {
                     <Pagination
                         currentPage={currentPage}
                         itemsPerPage={ITEMS_PER_PAGE}
-                        length={orders.length}
+                        length={orders && orders.length}
                     />
                 </div>
             </article>

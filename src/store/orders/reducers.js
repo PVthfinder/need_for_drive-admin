@@ -4,8 +4,8 @@ import {
 } from '../../constants/actionConstants';
 
 const initialState = {
-    orders: [],
-    visibleOrders: [],
+    orders: null,
+    visibleOrders: null,
 };
 
 export const ordersReducer = (state = initialState, action) => {

@@ -31,11 +31,17 @@ export const MENU_ITEMS = [
     },
 ];
 
-export const TIME_GRADATION = [
-    {name: 'За неделю'},
-    {name: 'За месяц'},
-    {name: 'За год'},
-    {name: 'За сутки'},
+const now = Date.now();
+const dayMs = 1000 * 60 * 60 * 24;
+const weekMs = dayMs * 7;
+const monthMs = dayMs * 30;
+const yearMs = dayMs * 365;
+
+export const PERIODS = [
+    {name: 'За неделю', dateFrom: now - weekMs},
+    {name: 'За месяц', dateFrom: now - monthMs},
+    {name: 'За год', dateFrom: now - yearMs},
+    {name: 'За сутки', dateFrom: now - dayMs},
 ];
 
 export const PRELOADER_ITEMS_ARR = [1, 2, 3, 4, 5];
