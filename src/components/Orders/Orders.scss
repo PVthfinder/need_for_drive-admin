@@ -19,6 +19,7 @@
     &__main {
         padding: 14px 22px;
         box-sizing: border-box;
+        flex-grow: 1;
     }
 
     &__footer {
@@ -27,5 +28,11 @@
             0px -0.5px 0px #E0E2E8,
             0px 0.5px 0px #E0E2E8;
         box-sizing: border-box;
+    }
+
+    &__filter_btns {
+        .btn:not(:last-child) {
+            margin-right: 15px;
+        }
     }
 }

@@ -102,10 +102,13 @@ function OrderCard({order}) {
                         />
                     </div>
                 </div>
-                <div className="order_item__price">
-                    {`${price.toLocaleString()} `}
-                    &#8381;
-                </div>
+                {price
+                && (
+                    <div className="order_item__price">
+                        {`${price.toLocaleString()} `}
+                        &#8381;
+                    </div>
+                )}
             </div>
 
             <Link to={`/admin/orders/${id}`} className="order_item__change_btn">

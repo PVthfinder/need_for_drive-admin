@@ -18,11 +18,7 @@ export const requestErrorReducer = (state = initialState, action) => {
             };
 
         case REQUEST_ERROR_UNSET_ERROR:
-            return {
-                ...state,
-                isError: false,
-                errorStatus: '',
-            };
+            return initialState;
 
         default:
             return state;
