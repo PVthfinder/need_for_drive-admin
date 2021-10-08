@@ -1,5 +1,7 @@
+@import '../../variables';
+
 .order_item {
-    &__options,
+    &__advanced_options,
     &__btns {
         margin-top: 30px;
     }
@@ -7,6 +9,33 @@
     &__btns {
         .btn:not(:last-child) {
             margin-right: 15px;
+        }
+    }
+
+    &__options {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .selector:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+    
+    &__options_alert {
+        position: absolute;
+        bottom: -15px;
+        font-family: $fontHelveticaRegular;
+        font-size: $fontSizeMain;
+        line-height: $lineHeightMain;
+        color: $redColor;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s;
+
+        &.active {
+            opacity: 1;
+            transform: scale(1);
         }
     }
 }
