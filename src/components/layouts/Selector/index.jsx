@@ -6,18 +6,25 @@ import './Selector.scss';
 
 function Selector({
     title,
+    entityName,
     chosenItem,
     setChosen,
     selectorArr,
+    isError,
 }) {
     const [activeSelector, setActiveSelector] = useState(false);
 
     const chooseHandler = (item) => {
-        setChosen(item);
+        setChosen(item, entityName);
         setActiveSelector(false);
     };
 
     const selectorClasses = classNames(
+        'selector',
+        {error: isError},
+    );
+
+    const selectorOptionsClasses = classNames(
         'selector__options',
         {active: activeSelector},
     );
@@ -34,12 +41,12 @@ function Selector({
     };
 
     return (
-        <div className="selector">
+        <div className={selectorClasses}>
             <div className="selector__choose">
                 {chosenItem && chosenItem.length > 0 ? chosenItem : `Выберите ${title}`}
             </div>
 
-            <ul className={selectorClasses}>
+            <ul className={selectorOptionsClasses}>
                 {selectorArr && selectorArr.map((item) => (
                     <li
                         key={item.id ?? item.name}
@@ -70,16 +77,20 @@ function Selector({
 
 Selector.propTypes = {
     title: PropTypes.string,
+    entityName: PropTypes.string,
     chosenItem: PropTypes.string,
     setChosen: PropTypes.func,
     selectorArr: PropTypes.arrayOf(PropTypes.any),
+    isError: PropTypes.bool,
 };
 
 Selector.defaultProps = {
     title: '',
+    entityName: '',
     chosenItem: '',
     setChosen: null,
     selectorArr: [],
+    isError: false,
 };
 
 export default Selector;

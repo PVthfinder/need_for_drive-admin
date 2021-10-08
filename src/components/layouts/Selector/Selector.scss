@@ -16,6 +16,10 @@
     position: relative;
     margin-right: 15px;
 
+    &.error {
+        box-shadow: 0 0 5px rgba(196, 24, 60, 0.5);
+    }
+
     &__choose {
         padding: 8px 8px 8px 14px;
         box-sizing: border-box;
