@@ -2,12 +2,14 @@ import {
     ENTITIES_SET_STATUSES,
     ENTITIES_SET_CARS,
     ENTITIES_SET_CITIES,
+    ENTITIES_SET_POINTS,
 } from '../../constants/actionConstants';
 
 const initialState = {
-    statuses: [],
-    cars: [],
-    cities: [],
+    statuses: null,
+    cars: null,
+    cities: null,
+    points: null,
 };
 
 export const entitiesReducer = (state = initialState, action) => {
@@ -28,6 +30,12 @@ export const entitiesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cities: action.payload,
+            };
+
+        case ENTITIES_SET_POINTS:
+            return {
+                ...state,
+                points: action.payload,
             };
 
         default:
