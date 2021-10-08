@@ -20,6 +20,7 @@ import './Orders.scss';
 function Orders() {
     const {orders, visibleOrders} = useSelector((state) => state.orders);
     const {currentPage} = useSelector((state) => state.pagination);
+    const {cars, cities, statuses} = useSelector((state) => state.entities);
     const dispatch = useDispatch();
     const location = useLocation();
 
@@ -65,7 +66,11 @@ function Orders() {
                     <OrdersFilters/>
                 </div>
                 {
-                    orders && visibleOrders
+                    orders
+                    && visibleOrders
+                    && statuses
+                    && cars
+                    && cities
                     ? (
                         <div className="admin_article__main">
                             {
