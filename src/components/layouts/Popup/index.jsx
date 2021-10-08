@@ -22,7 +22,7 @@ function Popup() {
         if (isPopup) {
             setTimeout(() => {
                 dispatch(unsetPopup());
-            }, 5000);
+            }, 10000);
         }
     }, [isPopup]);
 
