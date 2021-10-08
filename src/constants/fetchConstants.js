@@ -19,6 +19,8 @@ const CARS_DB = 'car';
 
 const CITIES_DB = 'city';
 
+const POINTS_DB = 'point';
+
 const DEFAULT_HEADERS = {
     'X-Api-Factory-Application-Id': API_KEY,
 };
@@ -36,4 +38,5 @@ export {
     STATUSES_DB,
     CARS_DB,
     CITIES_DB,
+    POINTS_DB,
 };
