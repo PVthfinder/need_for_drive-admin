@@ -1,8 +1,4 @@
-// import { useLocation } from 'react-router-dom';
-
 import {SYMBOLS} from '../constants/commonConstants';
-
-// const location = useLocation();
 
 export function createRandomString(size = 7) {
     let randomString = '';
@@ -12,12 +8,15 @@ export function createRandomString(size = 7) {
     return randomString;
 }
 
-const searchParams = new URLSearchParams();
-
 export function setSearchParams(paramsArr) {
+    const searchParams = new URLSearchParams();
     paramsArr.forEach((key) => {
         if (key.paramValue !== null) {
-            searchParams.set(key.paramName, key.paramValue);
+            if (key.paramName === 'dateFrom') {
+                searchParams.set('dateFrom[$gt]', key.paramValue);
+            } else {
+                searchParams.set(key.paramName, key.paramValue);
+            }
         } else {
             searchParams.delete(key.paramName);
         }
@@ -26,8 +25,10 @@ export function setSearchParams(paramsArr) {
     return searchParams;
 }
 
-export function getSearchParam(paramName) {
-    const paramVal = searchParams.get(paramName);
+export function getNameBySearchParam(location, searchParam, paramArr) {
+    const searchParams = new URLSearchParams(location.search);
+    const paramId = searchParams.get(searchParam);
+    const paramObj = paramArr ? paramArr.find((item) => item.id === paramId) : null;
 
-    return paramVal;
+    return paramObj ?? null;
 }
