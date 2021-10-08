@@ -42,4 +42,9 @@
     &--green {
         @include btnColor($mainAccentColor);
     }
+
+    &:disabled {
+        background: $lightGreyColor;
+        cursor: none;
+    }
 }
