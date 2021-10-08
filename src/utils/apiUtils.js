@@ -131,11 +131,24 @@ export async function deleteOrder(id) {
     return response;
 }
 
-export async function getEntity(entityName) {
+export async function getEntity(entityName, searchParams) {
     const options = {
         headers: getAuthHeader(),
     };
 
-    const response = await doFetch(`${API_DB_URL}/${entityName}`, options);
+    let url = `${API_DB_URL}/${entityName}`;
+
+    url = searchParams && searchParams.length ? `${url}?${searchParams}` : url;
+
+    const response = await doFetch(url, options);
+    return response;
+}
+
+export async function getSingleEntity(entityName, id) {
+    const options = {
+        headers: getAuthHeader(),
+    };
+
+    const response = await doFetch(`${ORDERS_URL}/${entityName}/${id}`, options);
     return response;
 }
