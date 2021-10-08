@@ -1,24 +1,31 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import Selector from '../layouts/Selector';
 import Button from '../layouts/Button';
 
-import { setSearchParams } from '../../utils/commonUtils';
+import { setSearchParams, getNameBySearchParam } from '../../utils/commonUtils';
 
 import { PERIODS } from '../../constants/commonConstants';
 
 function OrderFilters() {
+    const {statuses, cars, cities} = useSelector((state) => state.entities);
+    const location = useLocation();
+    const {pathname} = useLocation();
+    const {push} = useHistory();
+
     const [chosenPeriod, setChosenPeriod] = useState(null);
     const [chosenCar, setChosenCar] = useState(null);
     const [chosenCity, setChosenCity] = useState(null);
     const [chosenStatus, setChosenStatus] = useState(null);
 
-    const {statuses, cars, cities} = useSelector((state) => state.entities);
-    const {pathname} = useLocation();
-    const location = useLocation();
-    const {push} = useHistory();
+    useEffect(() => {
+        setChosenPeriod(getNameBySearchParam(location, 'dateFrom', PERIODS));
+        setChosenCar(getNameBySearchParam(location, 'carId', cars));
+        setChosenCity(getNameBySearchParam(location, 'cityId', cities));
+        setChosenStatus(getNameBySearchParam(location, 'orderStatusId', statuses));
+    }, []);
 
     const handlePeriodChange = (period) => {
         setChosenPeriod(period);
@@ -38,7 +45,7 @@ function OrderFilters() {
 
     const applyFilters = () => {
         const paramsArr = [
-            {paramName: 'dateFrom[$gt]', paramValue: chosenPeriod && chosenPeriod.dateFrom},
+            {paramName: 'dateFrom', paramValue: chosenPeriod && chosenPeriod.dateFrom},
             {paramName: 'carId', paramValue: chosenCar && chosenCar.id},
             {paramName: 'cityId', paramValue: chosenCity && chosenCity.id},
             {paramName: 'orderStatusId', paramValue: chosenStatus && chosenStatus.id},
