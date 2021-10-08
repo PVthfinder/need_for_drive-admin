@@ -1,7 +1,7 @@
 import {
     ORDER_SET_ORDER,
     ORDER_SET_ADDITIONAL_OPTION,
-    ORDER_SET_STATUS,
+    ORDER_SET_OPTION,
 } from '../../constants/actionConstants';
 
 const initialState = {
@@ -16,11 +16,11 @@ export const orderReducer = (state = initialState, action) => {
                 order: action.payload,
             };
 
-        case ORDER_SET_ADDITIONAL_OPTION:
+        case ORDER_SET_OPTION:
             const option = {};
             Object.keys(state.order).forEach((key) => {
-                if (key === action.payload) {
-                    option[action.payload] = !state.order[key];
+                if (key === action.payload.entityName) {
+                    option[action.payload.entityName] = action.payload.entityObj;
                 }
             });
 
@@ -32,12 +32,19 @@ export const orderReducer = (state = initialState, action) => {
                 },
             };
 
-        case ORDER_SET_STATUS:
+        case ORDER_SET_ADDITIONAL_OPTION:
+            const addOption = {};
+            Object.keys(state.order).forEach((key) => {
+                if (key === action.payload) {
+                    addOption[action.payload] = !state.order[key];
+                }
+            });
+
             return {
                 ...state,
                 order: {
                     ...state.order,
-                    orderStatusId: action.payload,
+                    ...addOption,
                 },
             };
 
