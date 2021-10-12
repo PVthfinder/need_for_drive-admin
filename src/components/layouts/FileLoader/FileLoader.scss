@@ -1,0 +1,45 @@
+@import '../../../variables';
+
+.file_loader {
+    input[type="file"] {
+        display: none;
+    }
+
+    label {
+        font-family: $fontRobotoRegular;
+        font-size: $fontSizeInput;
+        line-height: $lineHeightInput;
+        color: $mainBlackColor;
+        display: block;
+        width: 100%;
+        padding: 8px 13px 10px;
+        border: 1px solid $lightGreyColor;
+        border-radius: 4px;
+        box-sizing: border-box;
+        position: relative;
+        cursor: pointer;
+
+        &::after {
+            content: "Обзор";
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 65px;
+            height: 100%;
+            background-color: $backgroundAdminColor;
+            border-left: 1px solid $lightGreyColor;
+            border-radius: 0 4px 4px 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            &::after {
+                background-color: $errorGreyColor;
+            }
+        }
+    }
+}
