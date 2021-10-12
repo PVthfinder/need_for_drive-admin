@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import './Selector.scss';
 
 function Selector({
+    label,
     title,
     entityName,
     chosenItem,
@@ -41,41 +42,47 @@ function Selector({
     };
 
     return (
-        <div className={selectorClasses}>
-            <div className="selector__choose">
-                {chosenItem && chosenItem.length > 0 ? chosenItem : `Выберите ${title}`}
+        <div className="selector_block">
+            <div className="selector_label">
+                {label}
             </div>
+            <div className={selectorClasses}>
+                <div className="selector__choose">
+                    {chosenItem && chosenItem.length > 0 ? chosenItem : `Выберите ${title}`}
+                </div>
 
-            <ul className={selectorOptionsClasses}>
-                {selectorArr && selectorArr.map((item) => (
-                    <li
-                        key={item.id ?? item.name}
-                        onClick={() => chooseHandler(item)}
-                        onKeyDown={() => chooseHandler(item)}
-                        role="option"
-                        tabIndex="0"
-                        aria-selected={false}
-                    >
-                        {item.name}
-                    </li>
-                ))}
-            </ul>
+                <ul className={selectorOptionsClasses}>
+                    {selectorArr && selectorArr.map((item) => (
+                        <li
+                            key={item.id ?? item.name}
+                            onClick={() => chooseHandler(item)}
+                            onKeyDown={() => chooseHandler(item)}
+                            role="option"
+                            tabIndex="0"
+                            aria-selected={false}
+                        >
+                            {item.name}
+                        </li>
+                    ))}
+                </ul>
 
-            <div
-                className="selector__button"
-                onClick={handleDropdownClick}
-                onKeyDown={handleDropdownClick}
-                role="button"
-                tabIndex="0"
-                aria-label="dropdown selector"
-            >
-                <span className={selectorIconClasses}/>
+                <div
+                    className="selector__button"
+                    onClick={handleDropdownClick}
+                    onKeyDown={handleDropdownClick}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="dropdown selector"
+                >
+                    <span className={selectorIconClasses}/>
+                </div>
             </div>
         </div>
     );
 }
 
 Selector.propTypes = {
+    label: PropTypes.string,
     title: PropTypes.string,
     entityName: PropTypes.string,
     chosenItem: PropTypes.string,
@@ -85,6 +92,7 @@ Selector.propTypes = {
 };
 
 Selector.defaultProps = {
+    label: '',
     title: '',
     entityName: '',
     chosenItem: '',
