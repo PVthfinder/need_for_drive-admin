@@ -12,16 +12,20 @@
         }
     }
 
-    &__options {
+    &__main_options {
         position: relative;
         display: flex;
         flex-direction: column;
 
-        .selector:not(:last-child) {
+        .selector_block:not(:last-child) {
             margin-bottom: 10px;
         }
     }
-    
+
+    &__option {
+        margin-left: 20px;
+    }
+
     &__options_alert {
         position: absolute;
         bottom: -15px;
