@@ -9,7 +9,13 @@ import RequestError from '../../RequestError';
 import Orders from '../../Orders';
 import OrderItem from '../../OrderItem';
 import CarsList from '../../CarsList';
-import CarItem from '../../CarsList/CarItem';
+import CarItem from '../../CarItem';
+import PointsList from '../../PointsList';
+import CategoriesList from '../../CategoriesList';
+import CitiesList from '../../CitiesList';
+import PointItem from '../../PointItem';
+import CategoryItem from '../../CategoryItem';
+import CityItem from '../../CityItem';
 
 import './AdminPage.scss';
 
@@ -28,10 +34,20 @@ function AdminPage() {
                         : (
                             <section className="admin_content">
                                 <Switch>
-                                    <Route exact path="/admin/orders" component={Orders} />
-                                    <Route path="/admin/orders/:id" component={OrderItem} />
-                                    <Route exact path="/admin/cars" component={CarsList} />
-                                    <Route path="/admin/cars/:id" component={CarItem} />
+                                    <Route exact path="/admin/order" component={Orders} />
+                                    <Route path="/admin/order/:id" component={OrderItem} />
+                                    <Route exact path="/admin/car" component={CarsList} />
+                                    <Route path="/admin/car/:id" component={CarItem} />
+                                    <Route path="/admin/createCar" component={CarItem} />
+                                    <Route exact path="/admin/point" component={PointsList} />
+                                    <Route path="/admin/point/:id" component={PointItem} />
+                                    <Route path="/admin/createPoint" component={PointItem} />
+                                    <Route exact path="/admin/category" component={CategoriesList} />
+                                    <Route path="/admin/category/:id" component={CategoryItem} />
+                                    <Route path="/admin/createCategory" component={CategoryItem} />
+                                    <Route exact path="/admin/city" component={CitiesList} />
+                                    <Route path="/admin/city/:id" component={CityItem} />
+                                    <Route path="/admin/createCity" component={CityItem} />
                                 </Switch>
                             </section>
                         )
