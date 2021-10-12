@@ -10,6 +10,7 @@ function InputField({
     setInputValue,
     label,
     placeholder,
+    entityName,
     isError,
     setIsError,
 }) {
@@ -24,7 +25,7 @@ function InputField({
     );
 
     const handleInputChange = (value) => {
-        setInputValue(value);
+        setInputValue(value, entityName);
         if (value.length && setIsError) setIsError(false);
     };
 
@@ -55,6 +56,7 @@ InputField.propTypes = {
     setInputValue: PropTypes.func,
     label: PropTypes.string,
     placeholder: PropTypes.string,
+    entityName: PropTypes.string,
     isError: PropTypes.bool,
     setIsError: PropTypes.func,
 };
@@ -65,6 +67,7 @@ InputField.defaultProps = {
     setInputValue: null,
     label: '',
     placeholder: '',
+    entityName: '',
     isError: false,
     setIsError: null,
 };
