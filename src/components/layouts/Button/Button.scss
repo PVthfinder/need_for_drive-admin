@@ -17,14 +17,14 @@
 
 .btn {
     width: 110px;
-    height: 29px;
+    height: 31px;
     line-height: 29px;
     border:none;
     border-radius: 4px;
     color: $whiteColor;
     font-size: $fontSizeButton;
     cursor: pointer;
-    @include btnColor($blueColor);
+    background: transparent;
 
     &--request_error {
         width: 95px;
@@ -35,12 +35,30 @@
         width: 95px;
     }
 
+    &--blue {
+        @include btnColor($blueColor);
+
+    }
+
     &--red {
         @include btnColor($redColor);
     }
 
     &--green {
         @include btnColor($mainAccentColor);
+    }
+
+    &--grey {
+        color: $greyBlueColor;
+        @include btnColor($backgroundAdminColor);
+    }
+
+    &--colors {
+        @include btnColor($whiteColor);
+        box-sizing: border-box;
+        border-radius: 3px;
+        border: 1px solid $lightGreyColor;
+        width: 31px;
     }
 
     &:disabled {
