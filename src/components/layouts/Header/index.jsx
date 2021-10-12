@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
 import InputField from '../InputField';
+import Popup from '../Popup';
 
 import { userLogout } from '../../../store/user/actionCreators';
 
@@ -112,6 +113,7 @@ function Header() {
                     </ul>
                 </div>
             </div>
+            <Popup/>
         </header>
     );
 }

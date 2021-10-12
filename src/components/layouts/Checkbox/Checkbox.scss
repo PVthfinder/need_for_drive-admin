@@ -1,0 +1,53 @@
+@import '../../../variables';
+
+.checkbox {
+    input[type="checkbox"] {
+        display: none;
+
+        &:checked + label {
+            color: $mainBlackColor;
+
+            &::before {
+                border: 1px solid $mainAccentColor;
+                border-radius: 1px;
+            }
+
+            &::after {
+                background: url("../../../assets/images/check_icon.svg") 2px 3px no-repeat;
+            }
+        }
+    }
+
+    input[type="checkbox"] + label {
+        position: relative;
+        color: $lighterGreyColor;
+        font-size: $fontSizeError;
+        line-height: $lineHeightLink;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: "";
+            width: 13px;
+            height: 13px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-100%, -50%);
+            transition: border 0.1s ease-in;
+        }
+
+        &::before {
+            border: 1px solid $lightGreyColor;
+            border-radius: 1px;
+            box-sizing: border-box;
+            left: -8px;
+        }
+
+        &::after {
+            width: 20px;
+            left: 0;
+            z-index: 1;
+        }
+    }
+}

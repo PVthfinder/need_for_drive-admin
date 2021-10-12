@@ -1,0 +1,99 @@
+@import '../../../variables';
+
+.selector {
+    min-width: 150px;
+    max-width: 300px;
+    height: 29px;
+    border: 1px solid $lightGreyColor;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: $fontHelveticaRegular;
+    font-size: $fontSizeInput;
+    line-height: $lineHeightInput;
+    position: relative;
+    margin-right: 15px;
+
+    &.error {
+        box-shadow: 0 0 5px rgba(196, 24, 60, 0.5);
+    }
+
+    &__choose {
+        padding: 8px 8px 8px 14px;
+        box-sizing: border-box;
+    }
+
+    &__button {
+        width: 29px;
+        height: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        &:hover {
+            background-color: $backgroundAdminColor;
+        }
+    }
+
+    &__icon {
+        content: url("../../../assets/images/selector_icon.svg");
+        transition: all 0.3s ease-in;
+
+        &.active {
+            transform: rotate(90deg);
+        }
+    }
+
+    &__options {
+        width: 100%;
+        max-height: 300px;
+        overflow: auto;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 2;
+        background-color: $whiteColor;
+        box-shadow:
+            0px 1px 0px rgba(90, 97, 105, 0.11),
+            0px 2px 4px rgba(90, 97, 105, 0.12),
+            0px 5px 5px rgba(90, 97, 105, 0.06),
+            0px 3.5px 35px rgba(90, 97, 105, 0.1);
+            text-align: center;
+        transform-origin: 0 0;
+        transform: scaleY(0);
+        opacity: 0;
+        transition: all 0.3s ease-in;
+
+        &.active {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        li {
+            padding: 5px;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $errorGreyColor;
+            }
+
+            a {
+                display: block;
+                color: $mainGreyColor;
+            }
+
+            &:hover {
+                background-color: $backgroundAdminColor;
+
+                a {
+                    color: $blueColor;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+@import '../../../variables';
+
+.preloader {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $whiteColor;
+    opacity: 0.8;
+    z-index: 100;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__item {
+        content: url('../../../assets/images/logo_icon.svg');
+        width: 30px;
+        animation: move_item 1s ease-in-out infinite;
+
+        &:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+}
+
+@keyframes move_item {
+    50% {
+        transform: translateY(-30px);
+    }
+}

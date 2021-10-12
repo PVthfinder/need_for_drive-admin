@@ -41,6 +41,14 @@
         animation: show_form 0.5s;
         animation-fill-mode: forwards;
 
+        .input_field {
+            &__value {
+                input {
+                    margin: 9px 0 15px;
+                }
+            }
+        }
+
         &__heading {
             font-size: $fontSizeFormHeading;
             line-height: $lineHeightFormHeading;

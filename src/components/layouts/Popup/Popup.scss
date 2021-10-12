@@ -1,0 +1,43 @@
+@import '../../../variables';
+
+.popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    font-size: $fontSizeMain;
+    line-height: $lineHeightMain;
+    color: $whiteColor;
+    background-color: $redColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    transform: scaleY(0);
+    transition: all 0.3s;
+
+    &__done_icon {
+        margin-right: 9px;
+        svg {
+            path {
+                fill: $whiteColor;
+            }
+        }
+    }
+
+    &__close_icon {
+        content: url('../../../assets/images/close_icon.svg');
+        cursor: pointer;
+    }
+
+    &.active {
+        transform: scaleY(1);
+    }
+
+    &--success {
+        background-color: $mainAccentColor;
+    }
+}

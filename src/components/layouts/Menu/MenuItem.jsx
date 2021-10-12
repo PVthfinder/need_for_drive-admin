@@ -1,21 +1,23 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function MenuItem({img, path, title}) {
     return (
-        <Link
+        <NavLink
+            exact
             to={path}
             className="menu__item"
+            activeClassName="menu__active_menu_item"
         >
             {img}
             {title}
-        </Link>
+        </NavLink>
     );
 }
 
 MenuItem.propTypes = {
-    img: PropTypes.string,
+    img: PropTypes.objectOf(PropTypes.any),
     path: PropTypes.string,
     title: PropTypes.string,
 };

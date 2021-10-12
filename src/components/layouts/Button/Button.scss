@@ -30,4 +30,21 @@
         width: 95px;
         margin-top: 35px;
     }
+
+    &--admin_article_header {
+        width: 95px;
+    }
+
+    &--red {
+        @include btnColor($redColor);
+    }
+
+    &--green {
+        @include btnColor($mainAccentColor);
+    }
+
+    &:disabled {
+        background: $lightGreyColor;
+        cursor: none;
+    }
 }

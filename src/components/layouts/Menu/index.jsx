@@ -5,13 +5,13 @@ import MenuItem from './MenuItem';
 
 import icon from '../../../assets/images/logo_icon.svg';
 
-import {menuItems} from '../../../assets/db';
+import {MENU_ITEMS} from '../../../constants/commonConstants';
 
 import './Menu.scss';
 
 function Menu() {
     return (
-        <div className="menu">
+        <nav className="menu">
             <Link
             to="/admin"
                 className="menu__head"
@@ -22,7 +22,7 @@ function Menu() {
                 <h1 className="menu__heading">Need for drive</h1>
             </Link>
             <div className="menu__items">
-                {menuItems.map((item) => (
+                {MENU_ITEMS.map((item) => (
                     <MenuItem
                         key={item.title}
                         img={item.img}
@@ -31,7 +31,7 @@ function Menu() {
                     />
                 ))}
             </div>
-        </div>
+        </nav>
     );
 }
 
