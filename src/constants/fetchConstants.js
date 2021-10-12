@@ -11,7 +11,7 @@ const ITEMS_PER_PAGE = 10;
 
 const API_DB_URL = `${DOMAIN_URL}/api/db`;
 
-const ORDERS_URL = `${API_DB_URL}/order`;
+const ORDERS_DB = 'order';
 
 const STATUSES_DB = 'orderStatus';
 
@@ -20,6 +20,8 @@ const CARS_DB = 'car';
 const CITIES_DB = 'city';
 
 const POINTS_DB = 'point';
+
+const CATEGORIES_DB = 'category';
 
 const DEFAULT_HEADERS = {
     'X-Api-Factory-Application-Id': API_KEY,
@@ -33,10 +35,11 @@ export {
     CHECK_URL,
     LOGOUT_URL,
     ITEMS_PER_PAGE,
-    ORDERS_URL,
     API_DB_URL,
+    ORDERS_DB,
     STATUSES_DB,
     CARS_DB,
     CITIES_DB,
     POINTS_DB,
+    CATEGORIES_DB,
 };

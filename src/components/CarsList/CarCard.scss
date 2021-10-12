@@ -1,0 +1,59 @@
+@import '../../variables';
+
+.list_item {
+    &__main_info {
+        margin-right: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__number span {
+        display: inline-block;
+        padding: 4px 8px;
+        border: 1px solid $darkGreyColor;
+        border-radius: 4px;
+        box-sizing: border-box;
+        text-transform: uppercase;
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: column;
+
+        div:not(:last-child) {
+            margin-bottom: 5px;
+        }
+    }
+
+    &__price_range,
+    &__colors,
+    &__tank {
+        font-size: $fontSizeMain;
+        line-height: $lineHeightMain;
+        color: $lighterGreyColor;
+
+        span {
+            color: $mainBlackColor;
+            font-weight: 700;
+
+            &:not(:last-child) {
+                &::after {
+                    content: ", ";
+                }
+            }
+        }
+    }
+
+    &__price_range {
+        justify-content: flex-start;
+    }
+}
+
+.admin_article {
+    &__filters {
+        .input_field:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+}

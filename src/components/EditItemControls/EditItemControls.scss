@@ -1,0 +1,11 @@
+.item__controls {
+    .btn {
+        &--blue {
+            margin-right: 12px;
+        }
+
+        &--red {
+            float: right;
+        }
+    }
+}

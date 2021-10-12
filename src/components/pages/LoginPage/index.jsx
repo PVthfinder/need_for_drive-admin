@@ -118,6 +118,7 @@ function LoginPage() {
                     <Button
                         type="button"
                         title="Войти"
+                        color="blue"
                         onclick={handleAuthClick}
                     />
                 </div>

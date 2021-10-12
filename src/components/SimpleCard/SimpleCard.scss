@@ -1,0 +1,13 @@
+@import '../../variables';
+
+.list_item {
+    &__info {
+        .simple_list_item {
+            font-family: $fontHelveticaRegular;
+            font-size: $fontSizeMain;
+            line-height: $lineHeightMain;
+            color: $greyBlueColor;
+            font-weight: normal;
+        }
+    }
+}

@@ -1,16 +1,6 @@
 @import '../../variables';
 
-.order_item {
-    display: flex;
-    justify-content: space-between;
-    font-family: $fontHelveticaRegular;
-
-    &:not(:last-child) {
-        margin-bottom: 14px;
-        padding-bottom: 14px;
-        border-bottom: 1px solid $errorGreyColor;
-    }
-
+.list_item {
     &__car_info {
         display: flex;
     }
@@ -32,6 +22,10 @@
         font-size: $fontSizeMain;
         line-height: $lineHeightMain;
         color: $lighterGreyColor;
+
+        div:not(:last-child) {
+            margin-bottom: 5px;
+        }
 
         span {
             color: $mainBlackColor;

@@ -5,9 +5,11 @@ import { useLocation, useHistory } from 'react-router-dom';
 import Selector from '../layouts/Selector';
 import Button from '../layouts/Button';
 
-import { setSearchParams, getNameBySearchParam } from '../../utils/commonUtils';
+import { setSearchParams, getSearchParam } from '../../utils/commonUtils';
+import { getSingleEntity } from '../../utils/apiUtils';
 
 import { PERIODS } from '../../constants/commonConstants';
+import { CARS_DB, CITIES_DB, STATUSES_DB } from '../../constants/fetchConstants';
 
 function OrderFilters() {
     const {statuses, cars, cities} = useSelector((state) => state.entities);
@@ -21,10 +23,27 @@ function OrderFilters() {
     const [chosenStatus, setChosenStatus] = useState(null);
 
     useEffect(() => {
-        setChosenPeriod(getNameBySearchParam(location, 'dateFrom', PERIODS));
-        setChosenCar(getNameBySearchParam(location, 'carId', cars));
-        setChosenCity(getNameBySearchParam(location, 'cityId', cities));
-        setChosenStatus(getNameBySearchParam(location, 'orderStatusId', statuses));
+        const dateFromVal = getSearchParam(location, 'dateFrom[$gt]');
+        const carIdVal = getSearchParam(location, 'carId');
+        const cityIdVal = getSearchParam(location, 'cityId');
+        const orderStatusIdVal = getSearchParam(location, 'orderStatusId');
+
+        const newChosenPeriod = dateFromVal
+            ? PERIODS.find((item) => item.dateFrom === dateFromVal)
+            : null;
+        setChosenPeriod(newChosenPeriod);
+        if (carIdVal) {
+            getSingleEntity(CARS_DB, getSearchParam(location, 'carId'))
+                .then((data) => (data ? setChosenCar(data.data) : null));
+        }
+        if (cityIdVal) {
+            getSingleEntity(CITIES_DB, getSearchParam(location, 'cityId'))
+                .then((data) => (data ? setChosenCity(data.data) : null));
+        }
+        if (orderStatusIdVal) {
+            getSingleEntity(STATUSES_DB, getSearchParam(location, 'orderStatusId'))
+                .then((data) => (data ? setChosenStatus(data.data) : null));
+        }
     }, []);
 
     const handlePeriodChange = (period) => {
@@ -51,7 +70,7 @@ function OrderFilters() {
             {paramName: 'orderStatusId', paramValue: chosenStatus && chosenStatus.id},
         ];
         const searchParams = setSearchParams(paramsArr);
-        push({pathname, search: `?${searchParams}`});
+        push({pathname, search: `${searchParams}`});
     };
 
     const handleCancelFilters = () => {
@@ -93,6 +112,7 @@ function OrderFilters() {
                 <Button
                     type="button"
                     title=" Применить"
+                    color="blue"
                     location="admin_article_header"
                     onclick={applyFilters}
                 />

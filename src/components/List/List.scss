@@ -16,6 +16,17 @@
         justify-content: space-between;
     }
 
+    &__titles {
+        display: flex;
+        padding: 14px 22px;
+        box-sizing: border-box;
+        font-family: $fontHelveticaRegular;
+        font-size: $fontSizeMain;
+        line-height: $lineHeightMain;
+        color: $greyBlueColor;
+        font-weight: bold;
+    }
+
     &__main {
         padding: 14px 22px;
         box-sizing: border-box;
@@ -35,4 +46,9 @@
             margin-right: 15px;
         }
     }
+}
+
+.simple_list_item {
+    min-width: 250px;
+    margin-right: 50px;
 }

@@ -1,8 +1,15 @@
 @import '../../../variables';
 
+.selector_label {
+    font-family: $fontHelveticaRegular;
+    font-size: $fontSizeInput;
+    line-height: $lineHeightInput;
+    color: $darkGreyColor;
+}
+
 .selector {
     min-width: 150px;
-    max-width: 300px;
+    max-width: 600px;
     height: 29px;
     border: 1px solid $lightGreyColor;
     border-radius: 4px;

@@ -5,7 +5,6 @@ import {
     CHECK_URL,
     LOGOUT_URL,
     ITEMS_PER_PAGE,
-    ORDERS_URL,
     API_DB_URL,
 } from '../constants/fetchConstants';
 
@@ -80,75 +79,67 @@ export async function logout() {
     return response;
 }
 
-export async function getOrders(searchParamsStr, page) {
-    const options = {
-        headers: getAuthHeader(),
-    };
-
-    let filterUrl = ORDERS_URL;
-
-    if (searchParamsStr.length) {
-        filterUrl += searchParamsStr;
-        filterUrl = page ? `${filterUrl}&page=${page - 1}&limit=${ITEMS_PER_PAGE}` : filterUrl;
-    } else {
-        filterUrl = page ? `${filterUrl}?page=${page - 1}&limit=${ITEMS_PER_PAGE}` : filterUrl;
-    }
-
-    const response = await doFetch(filterUrl, options);
-    return response;
-}
-
-export async function getSingleOrder(id) {
-    const options = {
-        headers: getAuthHeader(),
-    };
-
-    const response = await doFetch(`${ORDERS_URL}/${id}`, options);
-    return response;
-}
-
-export async function changeOrder(orderObj) {
-    const options = {
-        headers: {
-            'Content-Type': 'application/json',
-            ...getAuthHeader(),
-        },
-        method: 'PUT',
-        body: JSON.stringify(orderObj),
-    };
-
-    const response = await doFetch(`${ORDERS_URL}/${orderObj.id}`, options);
-    return response;
-}
-
-export async function deleteOrder(id) {
-    const options = {
-        headers: getAuthHeader(),
-        method: 'DELETE',
-    };
-
-    const response = await doFetch(`${ORDERS_URL}/${id}`, options);
-    return response;
-}
-
-export async function getEntity(entityName, searchParams) {
+export async function getEntityList(entityName, searchParamsStr, page) {
     const options = {
         headers: getAuthHeader(),
     };
 
     let url = `${API_DB_URL}/${entityName}`;
 
-    url = searchParams && searchParams.length ? `${url}?${searchParams}` : url;
+    if (searchParamsStr && searchParamsStr.length) {
+        url += `${searchParamsStr}`;
+        url = page ? `${url}&page=${page - 1}&limit=${ITEMS_PER_PAGE}` : url;
+    } else {
+        url = page ? `${url}?page=${page - 1}&limit=${ITEMS_PER_PAGE}` : url;
+    }
 
     const response = await doFetch(url, options);
     return response;
 }
 
-export async function getSingleEntity(entityName, id) {
+export async function getSingleEntity(entityName, id = '') {
     const options = {
         headers: getAuthHeader(),
     };
 
-    const response = await doFetch(`${ORDERS_URL}/${entityName}/${id}`, options);
+    const response = await doFetch(`${API_DB_URL}/${entityName}/${id}`, options);
+    return response;
+}
+
+export async function createEntity(entityName, entityObj) {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeader(),
+        },
+        body: JSON.stringify(entityObj),
+        method: 'POST',
+    };
+
+    const response = await doFetch(`${API_DB_URL}/${entityName}`, options);
+    return response;
+}
+
+export async function changeEntity(entityName, entityObj) {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeader(),
+        },
+        method: 'PUT',
+        body: JSON.stringify(entityObj),
+    };
+
+    const response = await doFetch(`${API_DB_URL}/${entityName}/${entityObj.id}`, options);
+    return response;
+}
+
+export async function deleteEntity(entityName, id) {
+    const options = {
+        headers: getAuthHeader(),
+        method: 'DELETE',
+    };
+
+    const response = await doFetch(`${API_DB_URL}/${entityName}/${id}`, options);
     return response;
 }

@@ -1,0 +1,234 @@
+@import '../../variables';
+
+.admin_car_info {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    margin-top: 30px;
+    transform-origin: 0 0;
+    animation: show_content 0.5s;
+    animation-fill-mode: forwards;
+
+    .car_main_info,
+    .car_settings {
+        background: $whiteColor;
+        box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+        border-radius: 9px;
+        box-sizing: border-box;
+        margin-right: 28px;
+    }
+
+    .car_main_info {
+        width: 335px;
+        margin-right: 28px;
+        display: flex;
+        flex-direction: column;
+
+        &__img_name {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 23px 45px;
+            box-sizing: border-box;
+        }
+
+        &__img {
+            margin-bottom: 10px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &__name {
+            font-family: $fontHelveticaRegular;
+            font-size: $fontSizeCarName;
+            line-height: $lineHeightCarName;
+            color: $greyBlueColor;
+            margin-bottom: 5px;
+        }
+
+        &__category {
+            font-family: $fontHelveticaRegular;
+            font-size: $fontSizeMain;
+            line-height: $lineHeightMain;
+            color: $lighterGreyColor;
+            margin-bottom: 10px;
+        }
+
+        &__file_loader {
+            width: 100%;
+        }
+
+        &__tank {
+            box-shadow:
+                0px -1px 0px rgba(0, 0, 0, 0.12),
+                0px 1px 0px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+        }
+
+        &__desc {
+            padding: 23px 23px 45px;
+
+            label {
+                display: flex;
+                flex-direction: column;
+                font-family: $fontRobotoMedium;
+                font-size: $fontSizeMain;
+                line-height: $lineHeightMain;
+                color: $lighterGreyColor;
+
+                textarea {
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                    min-height: 100px;
+                    resize: none;
+                    margin-top: 14px;
+                    font-family: $fontRobotoRegular;
+                    font-size: $fontSizeCarDesc;
+                    line-height: $lineHeightCarDesc;
+                    color: $mainGreyColor;
+                }
+            }
+        }
+    }
+
+    .car_settings {
+        padding: 20px 18px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        &__heading {
+            font-family: $fontRobotoMedium;
+            font-size: $fontSizeFormHeading;
+            line-height: $lineHeightFormHeading;
+            color: $greyBlueColor;
+        }
+
+        &__options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            column-gap: 21px;
+            row-gap: 31px;
+            margin-top: 42px;
+
+            .selector_block {
+                .selector {
+                    max-width: 500px;
+                    margin-right: 0;
+                }
+            }
+
+            .input_field {
+                label {
+                    margin-bottom: 5px;
+                }
+
+                &__error {
+                    bottom: auto;
+                }
+            }
+
+            .selector_block {
+                .selector_label {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+
+        &__add_colors {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .input_field {
+            flex-grow: 1;
+        }
+
+        &__colors_btn {
+            position: relative;
+            margin-left: 8px;
+            display: flex;
+            align-items: flex-end;
+
+            &::before,
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 2px;
+                height: 16px;
+                background: $lightGreyColor;
+                transform: translate(-50%,-50%);
+            }
+
+            &::after {
+                transform: translate(-50%,-50%) rotate(90deg);
+            }
+        }
+
+        &__available_colors {
+            margin-left: 20px;
+            margin-top: 15px;
+
+            .checkbox {
+                input[type="checkbox"] {
+                    &:checked + label {
+                        color: $mainBlackColor;
+
+                        &::before {
+                            border: none;
+                            border-radius: 1px;
+                            background: $blueColor;
+                        }
+
+                        span {
+                            svg {
+                                path {
+                                    fill: $whiteColor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tank {
+    padding: 14px 22px;
+
+    &__heading {
+        font-family: $fontHelveticaRegular;
+        font-size: $fontSizeMain;
+        line-height: $lineHeightMain;
+        color: $lighterGreyColor;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    &__fullness {
+        width: 100%;
+        height: 5px;
+        box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    &__indicator {
+        height: 5px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: $blueColor;
+    }
+}

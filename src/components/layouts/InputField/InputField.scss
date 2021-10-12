@@ -36,6 +36,10 @@
         }
     }
 
+    label {
+        font-family: $fontHelveticaRegular;
+    }
+
     &__error {
         font-size: $fontSizeError;
         line-height: $lineHeightError;
